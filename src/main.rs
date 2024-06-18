@@ -1,49 +1,48 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
-use eframe::egui;
 use crate::egui::{Color32, Frame, Stroke};
+use eframe::egui;
 
 fn main() {
-	let options = eframe::NativeOptions {
-		maximized: true,
-		fullscreen: true,
-		..eframe::NativeOptions::default()
-	};
-	eframe::run_native(
-		"magic-mirror",
-		options,
-		Box::new(|_ctx| Box::new(MyApp::default())),
-	);
+    let options = eframe::NativeOptions {
+        maximized: true,
+        fullscreen: true,
+        ..eframe::NativeOptions::default()
+    };
+    eframe::run_native(
+        "magic-mirror",
+        options,
+        Box::new(|_ctx| Box::new(MyApp::default())),
+    );
 }
 
 #[derive(Default)]
 struct MyApp {}
 
 impl eframe::App for MyApp {
-	fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
-		if ctx.input().key_pressed(egui::Key::Escape)
-			|| ctx.input().key_pressed(egui::Key::Q) {
-			frame.quit();
-			return;
-		}
+    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+        if ctx.input().key_pressed(egui::Key::Escape) || ctx.input().key_pressed(egui::Key::Q) {
+            frame.quit();
+            return;
+        }
 
-		if ctx.input().key_pressed(egui::Key::F) {
-			frame.set_fullscreen(!frame.is_fullscreen());
-		}
+        if ctx.input().key_pressed(egui::Key::F) {
+            frame.set_fullscreen(!frame.is_fullscreen());
+        }
 
-		egui::CentralPanel::default()
-			.frame(Frame::none().fill(Color32::BLACK))
-			.show(ctx, |ui| {
-				ui.visuals_mut().widgets.noninteractive.fg_stroke.color = Color32::WHITE;
+        egui::CentralPanel::default()
+            .frame(Frame::none().fill(Color32::BLACK))
+            .show(ctx, |ui| {
+                ui.visuals_mut().widgets.noninteractive.fg_stroke.color = Color32::WHITE;
 
-				ui.heading("Weather");
-				ui.label("23°");
-			});
-	}
+                ui.heading("Weather");
+                ui.label("23°");
+            });
+    }
 
-	fn clear_color(&self, _visuals: &egui::Visuals) -> egui::Rgba {
-		egui::Rgba::BLACK
-	}
+    fn clear_color(&self, _visuals: &egui::Visuals) -> egui::Rgba {
+        egui::Rgba::BLACK
+    }
 }
 //
 // use bevy::prelude::*;

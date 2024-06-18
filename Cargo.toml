@@ -6,8 +6,10 @@ edition = "2021"
 [dependencies]
 
 [dependencies.eframe]
-#version = "0.18.0"
-path = "../egui/eframe"
+version = "0.19.0"
+default-features = false
+features = ["egui-wgpu"]
+#path = "../egui/eframe"
 
 #[dependencies.bevy_egui]
 #version = "0.14.0"
